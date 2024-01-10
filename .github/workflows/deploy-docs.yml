@@ -1,12 +1,10 @@
 
-name: 部署文档
+name: Node.js CI
 
 on:
   push:
-    branches:
-      # 确保这是你正在使用的分支名称
-      - main
-
+    branches: [ main ]
+      # 监听了develop分支的push操作，每当develop分支发生push行为时，将自动执行接下来的steps。branches是一个数组，可以填写多个分支的名字
 permissions:
   contents: write
 
@@ -32,14 +30,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
-          cache: pnpm
+          cache: npm
 
 
       - name: 构建文档
         env:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
-          pnpm run docs:build
+          npm install 
+          npm run docs:build
           > src/.vuepress/dist/.nojekyll
 
       - name: 部署文档
