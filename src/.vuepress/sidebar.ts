@@ -4,16 +4,16 @@ export default sidebar({
   "/": [
    
     // {
-    //   text: "如何使用",
+    //   text: "知识笔记总结",
     //   icon: "laptop-code",
-    //   prefix: "demo/",
-    //   link: "demo/",
+    //   prefix: "knowledge/",
+    //   link: "knowledge/",
     //   children: "structure",
     // },
     // {
-    //   text: "文章",
+    //   text: "网站例子",
     //   icon: "book",
-    //   prefix: "posts/",
+    //   prefix: "demo/",
     //   children: "structure",
     // },
     // "intro",
@@ -29,10 +29,20 @@ export default sidebar({
     //   link: "https://plugin-md-enhance.vuejs.press/zh/guide/content/revealjs/demo.html",
     // },
   ],
-  "/code-life/": [
+  "/knowledge/": [
     {
-      text: "程序人生",
+      text: "笔记",
       // icon: "book",
+      // prefix: "code-life/",
+      // link: "code-life/",
+      children: "structure",
+    },
+    
+  ],
+  "/demo/": [
+    {
+      text: "演示",
+      icon: "white_large_square",
       // prefix: "code-life/",
       // link: "code-life/",
       children: "structure",

@@ -6,20 +6,21 @@ export default navbar([
   {
     text: "随笔",
     icon: "pen-to-square",
-    prefix: "/posts/",
+    prefix: "/随笔/",
     children: [
       {
+
         text: "代码心得",
         icon: "pen-to-square",
-        prefix: "apple/",
+        prefix: "想法/",
         children: [
-          { text: "思路", icon: "pen-to-square", link: "1" },
+          { text: "思路", icon: "pen-to-square", link: "学习思路" },
         ],
       },
       {
         text: "工作随笔",
         icon: "pen-to-square",
-        prefix: "java/",
+        prefix: "工作/",
         children: [
           { text: "测试", icon: "pen-to-square", link: "test" },
         ],
@@ -27,26 +28,24 @@ export default navbar([
       {
         text: "生活随笔",
         icon: "pen-to-square",
-        prefix: "banana/",
+        prefix: "生活/",
         children: [
           {
             text: "感悟",
             icon: "pen-to-square",
-            link: "1",
+            link: "生活感悟",
           },
         
         ],
       },
-      // { text: "樱桃", icon: "pen-to-square", link: "cherry" },
-      // { text: "火龙果", icon: "pen-to-square", link: "dragonfruit" },
-      // "tomato",
-      // "strawberry",
     ],
   },
-  "/code-life",
+  "/knowledge",
+  
+  "/demo",
 
   
-
+// 也可以放链接这里
   // {
   //   text: "V2 文档",
   //   icon: "book",
