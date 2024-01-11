@@ -1,7 +1,8 @@
 ---
 title: 知识笔记总结
 index: false
-icon: laptop-code
+icon: man_technologist
+# icon: laptop-code
 category:
   - 使用指南
 ---

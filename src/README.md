@@ -4,7 +4,8 @@ layout: BlogHome
 icon: home
 title: 博客主页
 # bgImage: https://images.pexels.com/photos/18515836/pexels-photo-18515836.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
-# heroImage: http://wx.qlogo.cn/mmopen/hq5eSuP936UuicLNJoPk3v5ksFoeq51J9yI6uF6QtLpfVewy63EIgnceVFFW8BD3uAUXTrrQlQ8AV6JZRJHib4iansmlqIoUznO/64
+blog.roundAvatar: true
+
 heroText: lzc知识库
 # heroFullScreen: true
 tagline: 先会用，再会造,先看脉络，再看细节，先看文档，再看视频,先写例子，再下项目，用脑想，动手写，开口说，用笔记。
@@ -40,4 +41,5 @@ projects:
     link: https://wangchujiang.com/
 
 footer: 努力争取自己想要得
+
 ---

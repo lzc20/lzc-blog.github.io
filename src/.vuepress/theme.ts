@@ -15,7 +15,8 @@ export default hopeTheme({
 
   logo: "http://wx.qlogo.cn/mmopen/hq5eSuP936UuicLNJoPk3v5ksFoeq51J9yI6uF6QtLpfVewy63EIgnceVFFW8BD3uAUXTrrQlQ8AV6JZRJHib4iansmlqIoUznO/64",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  //这个是跳转到对应得github得代码仓库进行编辑
+  // repo: "lzc20/lzc-blog.github.io",
  
   repoDisplay: false,
 
@@ -30,7 +31,7 @@ export default hopeTheme({
   sidebar,
 
   // 页脚
-  footer: "页脚",
+  footer: "主题使用 VuePress Theme Hope | 关于网站",
   displayFooter: true,
 
   // 博客相关
