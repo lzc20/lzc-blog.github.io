@@ -1,7 +1,7 @@
 ---
-title: 知识笔记归档目录
+title: 杂记目录
 order: 100
-icon: book
+# icon: laptop-code
 category:
   - 杂乱
 ---

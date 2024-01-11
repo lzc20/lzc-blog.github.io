@@ -41,5 +41,7 @@ projects:
     link: https://wangchujiang.com/
 
 footer: 努力争取自己想要得
-
 ---
+## 学习
+
+在干嘛啊卧槽

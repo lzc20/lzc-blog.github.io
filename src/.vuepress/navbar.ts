@@ -15,6 +15,11 @@ export default navbar([
         prefix: "想法/",
         children: [
           { text: "思路", icon: "pen-to-square", link: "学习思路" },
+          {
+            text: "突如其来的感想",
+            icon: "pen-to-square",
+            link: "cao",
+          },
         ],
       },
       {
@@ -35,6 +40,7 @@ export default navbar([
             icon: "pen-to-square",
             link: "生活感悟",
           },
+         
         
         ],
       },

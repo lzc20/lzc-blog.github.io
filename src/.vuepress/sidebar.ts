@@ -31,14 +31,17 @@ export default sidebar({
   ],
   "/knowledge/": [
     {
-      text: "笔记",
+      text: "知识笔记归档",
       // icon: "book",
       // prefix: "code-life/",
       // link: "code-life/",
       children: "structure",
     },
-    
   ],
+  // "/knowledge/前端相关/":[{
+  //   text: "前端相关",
+  //   children: "structure",
+  // },],
   "/demo/": [
     {
       text: "演示",
