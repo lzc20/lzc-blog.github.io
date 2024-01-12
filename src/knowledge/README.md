@@ -1,8 +1,6 @@
 ---
 title: 知识笔记归档目录
-order: 100
+index: true
 icon: book
-category:
-  - 杂乱
 ---
 <AutoCatalog />

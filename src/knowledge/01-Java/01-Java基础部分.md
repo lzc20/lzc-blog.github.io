@@ -1,7 +1,9 @@
 ---
-title: 01-Java基础
+title: Java基础
 order: 1
 ---
+# 01-01Java基础
+
 ## 基础概念与常识
 
 ### Java 语言有哪些特点?
