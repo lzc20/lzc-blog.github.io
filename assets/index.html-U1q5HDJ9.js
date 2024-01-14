@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2fa7c9b5","path":"/%E9%9A%8F%E7%AC%94/%E6%83%B3%E6%B3%95/","title":"想法","lang":"zh-CN","frontmatter":{"title":"想法","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};

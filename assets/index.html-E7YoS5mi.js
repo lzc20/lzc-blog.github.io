@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-0f156cc6","path":"/knowledge/03-%E6%95%B0%E6%8D%AE%E5%BA%93/tidb%E6%95%B0%E6%8D%AE%E5%BA%93/","title":"Tidb数据库","lang":"zh-CN","frontmatter":{"title":"Tidb数据库","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};
