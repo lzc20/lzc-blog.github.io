@@ -4,7 +4,7 @@ import sidebar from "./sidebar.js";
 import { MR_HOPE_AVATAR } from "./logo.js";
 
 export default hopeTheme({
-  hostname: "https://mister-hope.github.io",
+  // hostname: "https://mister-hope.github.io",
 
   author: {
     name: "Mr.Lzc",
@@ -16,8 +16,9 @@ export default hopeTheme({
   logo: "http://wx.qlogo.cn/mmopen/hq5eSuP936UuicLNJoPk3v5ksFoeq51J9yI6uF6QtLpfVewy63EIgnceVFFW8BD3uAUXTrrQlQ8AV6JZRJHib4iansmlqIoUznO/64",
 
   //这个是跳转到对应得github得代码仓库进行编辑
-  // repo: "lzc20/lzc-blog.github.io",
- 
+  repo: "lzc20/lzc-blog.github.io",
+
+
   repoDisplay: false,
 
   docsDir: "src",
@@ -93,6 +94,7 @@ export default hopeTheme({
   // 在这里配置主题提供的插件
   plugins: {
     blog: true,
+    
 
     // 在启用之前需要安装 @waline/client
     // 警告: 这是一个仅供演示的测试服务器，在生产环境中请自行部署并使用自己的服务器！

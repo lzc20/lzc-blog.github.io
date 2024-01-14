@@ -7,7 +7,8 @@ title: 博客主页
 blog.roundAvatar: true
 
 heroText: lzc知识库
-# heroFullScreen: true
+# 大屏幕背景
+heroFullScreen: false
 tagline: 先会用，再会造,先看脉络，再看细节，先看文档，再看视频,先写例子，再下项目，用脑想，动手写，开口说，用笔记。
 projects:
   - icon: project
@@ -42,6 +43,3 @@ projects:
 
 footer: 努力争取自己想要得
 ---
-## 学习
-
-在干嘛啊卧槽
