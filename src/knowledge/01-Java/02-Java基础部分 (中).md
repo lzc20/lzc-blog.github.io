@@ -66,7 +66,7 @@ new 运算符，new 创建对象实例（对象实例在堆内存中），对象
 
 封装：把一个些属性特征搞成一个对象。
 
-继承：继承家业，但是爸爸的女人你不能有这是私人的。只能继承公共的
+继承：继承家业，但是爸爸的女人你不能有这是私人的。只能继承公共的，并且可以扩大家业，也可用自己的方式来实现父类的方法
 
 多态：一个对象具有多种状态，具体表现为父类的引用指向子类的实例
 
@@ -77,7 +77,138 @@ new 运算符，new 创建对象实例（对象实例在堆内存中），对象
 
 - 如果子类重写了父类的方法，真正执行的是子类覆盖的方法，如果子类没有覆盖父类的方法，执行的是父类的方法
 
+### 接口和抽象类有什么共同点和区别？
+
+共同点：
+
+- 都不能实列化
+- 都可以包含抽象方法
+- 都有默认的实现方法
+
+区别：
+
+- 接口主要对于类的行为进行约束，你实现了某个接口就具有对应的行为，抽象类主要用于代码服用，强调的所属关系，
+- 一个类只能继承一个类，但是可以实现多个接口
+- 接口中的成员变量只能  `public static final` 类型的，不能被修改且必须有初始值，而抽象类的成员变量默认default，可在子类中被重新定义，也可被重新赋值。
+
+### 深拷贝和浅拷贝了解么？什么是引用拷贝》
+
+guide哥说：
+
+- **浅拷贝**：浅拷贝会在堆上创建一个新的对象（区别与引用拷贝），不过，如果原对象内部的属性是引用类型的话，浅拷贝会直接复制内部对象的引用地址，也就是说拷贝对象和原对象共用一个内部对象。
+
+- **深拷贝** ：深拷贝是完全复制整个对象包含内部对象。就说都是自己的
+
+![浅拷贝、深拷贝、引用拷贝示意图](02-Java基础部分 (中).assets/shallow&deep-copy.png)
+
+**那什么是引用拷贝呢？** 简单来说，引用拷贝就是两个不同的引用指向同一个对象。
+
+## Object
+
+### Object类常见的方法有哪些？
+
+Object是一个特殊的类是所有类的父类。它主要提供了以下11哥方法
+
+```java 
+/**
+ * native 方法，用于返回当前运行时对象的 Class 对象，使用了 final 关键字修饰，故不允许子类重写。
+ */
+public final native Class<?> getClass()
+/**
+ * native 方法，用于返回对象的哈希码，主要使用在哈希表中，比如 JDK 中的HashMap。
+ */
+public native int hashCode()
+/**
+ * 用于比较 2 个对象的内存地址是否相等，String 类对该方法进行了重写以用于比较字符串的值是否相等。
+ */
+public boolean equals(Object obj)
+/**
+ * native 方法，用于创建并返回当前对象的一份拷贝。
+ */
+protected native Object clone() throws CloneNotSupportedException
+/**
+ * 返回类的名字实例的哈希码的 16 进制的字符串。建议 Object 所有的子类都重写这个方法。
+ */
+public String toString()
+/**
+ * native 方法，并且不能重写。唤醒一个在此对象监视器上等待的线程(监视器相当于就是锁的概念)。如果有多个线程在等待只会任意唤醒一个。
+ */
+public final native void notify()
+/**
+ * native 方法，并且不能重写。跟 notify 一样，唯一的区别就是会唤醒在此对象监视器上等待的所有线程，而不是一个线程。
+ */
+public final native void notifyAll()
+/**
+ * native方法，并且不能重写。暂停线程的执行。注意：sleep 方法没有释放锁，而 wait 方法释放了锁 ，timeout 是等待时间。
+ */
+public final native void wait(long timeout) throws InterruptedException
+/**
+ * 多了 nanos 参数，这个参数表示额外时间（以纳秒为单位，范围是 0-999999）。 所以超时的时间还需要加上 nanos 纳秒。。
+ */
+public final void wait(long timeout, int nanos) throws InterruptedException
+/**
+ * 跟之前的2个wait方法一样，只不过该方法一直等待，没有超时时间这个概念
+ */
+public final void wait() throws InterruptedException
+/**
+ * 实例被垃圾回收器回收的时候触发的操作
+ */
+protected void finalize() throws Throwable { }
+
+```
+
+### ==与equals()的区别
+
+一个比较的是地址，一个比较的是内容，基本类型和引用类型来说明
+
+String中的`equals`方法是被重写过的因为`Object`的`euqals()`方法是比较对象的内存地址，而`String`的`equals`方法是比较的对象的值。
+
+当创建`String`类型的对象时候，虚拟机会在常量池中找有没有以及村子啊的值和要创建的值相同的对象，如果有就会把他赋给当前引用，如果没有就在常量池中创建一个/string对象。
 
 
 
+~~~java
+public boolean equals(Object anObject) {
+    if (this == anObject) {
+        return true;
+    }
+    if (anObject instanceof String) {
+        String anotherString = (String)anObject;
+        int n = value.length;
+        if (n == anotherString.value.length) {
+            char v1[] = value;
+            char v2[] = anotherString.value;
+            int i = 0;
+            while (n-- != 0) {
+                if (v1[i] != v2[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+~~~
+
+### HashCode()有什么用呢？
+
+hashCode的作用是获取哈希码（int整数），也称之为散列码。这个哈希码作用是确定对象在哈希表中的索引位置。
+
+![hashCode(02-Java基础部分 (中).assets/java-hashcode-method.png) 方法](https://oss.javaguide.cn/github/javaguide/java/basis/java-hashcode-method.png)
+
+
+
+hashCode（）定义在JDK的Object类中，这就意味着Java中的任务类都包含HashCode这个函数。另外需要注意的是，hashCode方法是本地方法，就是用C语言或者C++来实现的。
+
+~~~Java
+public native int hashCode();
+~~~
+
+散列表存储的键值怼（Key-value），他的特点是：能够根据建快速检索出对应的值，这其中就利用了散列码。
+
+### 为什么要有HashCode？
+
+hashSet如何检查重复的？
 
