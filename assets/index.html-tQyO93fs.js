@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-2ccfe4c1","path":"/knowledge/%E4%BF%AE%E5%85%BB/","title":"修养","lang":"zh-CN","frontmatter":{"title":"修养","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};
