@@ -99,7 +99,7 @@ guide哥说：
 
 - **深拷贝** ：深拷贝是完全复制整个对象包含内部对象。就说都是自己的
 
-![浅拷贝、深拷贝、引用拷贝示意图](02-Java基础部分 (中).assets/shallow&deep-copy.png)
+![浅拷贝、深拷贝、引用拷贝示意图](02-Java基础部分(中).assets/shallow&deep-copy.png)
 
 **那什么是引用拷贝呢？** 简单来说，引用拷贝就是两个不同的引用指向同一个对象。
 
@@ -196,7 +196,7 @@ public boolean equals(Object anObject) {
 
 hashCode的作用是获取哈希码（int整数），也称之为散列码。这个哈希码作用是确定对象在哈希表中的索引位置。
 
-![hashCode(02-Java基础部分 (中).assets/java-hashcode-method.png) 方法](https://oss.javaguide.cn/github/javaguide/java/basis/java-hashcode-method.png)
+![hashCode(02-Java基础部分(中).assets/java-hashcode-method.png) 方法](https://oss.javaguide.cn/github/javaguide/java/basis/java-hashcode-method.png)
 
 
 
@@ -210,5 +210,159 @@ public native int hashCode();
 
 ### 为什么要有HashCode？
 
-hashSet如何检查重复的？
+hashSet如何检查重复的？ guide哥用这个例子来告诉我们
 
+他说他看了一本Java的启蒙书籍《HeadFirst Java》：
+
+当你把对象加入`HashSet`时,`HashSet` 会先计算对象的`hashCode`值来判断对象加入的位置，同事也会与其他已经加入的对象的`HashCode`值来做比较，如果没有相符的hashCode，HashCode会假设对象没有重复出现。但是如果发现有相同的hashCode，HashSet会假设对象没有重复出现，但是如果有发现相同的hashCode值对象这时，会调用equals（）方法来检查hashCode相等的对象是否真的相同，如果俩者相同，HashSet就不会让其加入操作成功，如果不同的话，就会重新散列到其他位置，这样我们就大大减少了equals的次数，相应就大大提高了执行速度，。
+
+hashCode和equals都是用于比较俩对象是否相等。
+
+**那为什么JDK还要同事提供这俩方法呢**
+
+这是因为在一些容器（比如 `HashMap`、`HashSet`）中，有了 `hashCode()` 之后，判断元素是否在对应容器中的效率会更高（参考添加元素进`HashSet`的过程）！
+
+我们在前面也提到了添加元素进`HashSet`的过程，如果 `HashSet` 在对比的时候，同样的 `hashCode` 有多个对象，它会继续使用 `equals()` 来判断是否真的相同。也就是说 `hashCode` 帮助我们大大缩小了查找成本。
+
+**那为什么不只提供 hashCode() 方法呢？**
+
+这是因为两个对象的`hashCode` 值相等并不代表两个对象就相等。
+
+**那为什么两个对象有相同的 hashCode 值，它们也不一定是相等的？**
+
+因为 `hashCode()` 所使用的哈希算法也许刚好会让多个对象传回相同的哈希值。越糟糕的哈希算法越容易碰撞，但这也与数据值域分布的特性有关（所谓哈希碰撞也就是指的是不同的对象得到相同的 `hashCode` )。
+
+总结下来就是：
+
+- 如果两个对象的`hashCode` 值相等，那这两个对象不一定相等（哈希碰撞）。
+- 如果两个对象的`hashCode` 值相等并且`equals()`方法也返回 `true`，我们才认为这两个对象相等。
+- 如果两个对象的`hashCode` 值不相等，我们就可以直接认为这两个对象不相等。
+
+相信大家看了我前面对 `hashCode()` 和 `equals()` 的介绍之后，下面这个问题已经难不倒你们了。
+
+### 为什么重写equals时候必须重写hashCode（）方法？
+
+### 为什么重写 equals() 时必须重写 hashCode() 方法？
+
+因为两个相等的对象的 `hashCode` 值必须是相等。也就是说如果 `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
+
+如果重写 `equals()` 时没有重写 `hashCode()` 方法的话就可能会导致 `equals` 方法判断是相等的两个对象，`hashCode` 值却不相等。
+
+**思考**：重写 `equals()` 时没有重写 `hashCode()` 方法的话，使用 `HashMap` 可能会出现什么问题。
+
+**总结**：
+
+- `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
+- 两个对象有相同的 `hashCode` 值，他们也不一定是相等的（哈希碰撞）
+
+## String(字符串)
+
+### String、StringBuffer、StringBuilder 的区别？
+
+**可变性**
+
+`String` 是不可变的（后面会详细分析原因）。
+
+`StringBuilder` 与 `StringBuffer` 都继承自 `AbstractStringBuilder` 类，在 `AbstractStringBuilder` 中也是使用字符数组保存字符串，不过没有使用 `final` 和 `private` 关键字修饰，最关键的是这个 `AbstractStringBuilder` 类还提供了很多修改字符串的方法比如 `append` 方法。
+
+~~~java 
+abstract class AbstractStringBuilder implements Appendable, CharSequence {
+    char[] value;
+    public AbstractStringBuilder append(String str) {
+        if (str == null)
+            return appendNull();
+        int len = str.length();
+        ensureCapacityInternal(count + len);
+        str.getChars(0, len, value, count);
+        count += len;
+        return this;
+    }
+    //...
+}
+
+~~~
+
+### String 为什么是不可变的?
+
+`String` 类中使用 `final` 关键字修饰字符数组来保存字符串，所以`String` 对象是不可变的。
+
+```java
+public final class String implements java.io.Serializable, Comparable<String>, CharSequence {
+    private final char value[];
+  //...
+}
+```
+
+
+
+
+
+
+
+
+
+> 🐛 修正：我们知道被 `final` 关键字修饰的类不能被继承，修饰的方法不能被重写，修饰的变量是基本数据类型则值不能改变，修饰的变量是引用类型则不能再指向其他对象。因此，`final` 关键字修饰的数组保存字符串并不是 `String` 不可变的根本原因，因为这个数组保存的字符串是可变的（`final` 修饰引用类型变量的情况）。
+>
+> `String` 真正不可变有下面几点原因：
+>
+> 1. 保存字符串的数组被 `final` 修饰且为私有的，并且`String` 类没有提供/暴露修改这个字符串的方法。
+> 2. `String` 类被 `final` 修饰导致其不能被继承，进而避免了子类破坏 `String` 不可变。
+>
+> 相关阅读：[如何理解 String 类型值的不可变？ - 知乎提问open in new window](https://www.zhihu.com/question/20618891/answer/114125846)
+>
+> 补充（来自[issue 675open in new window](https://github.com/Snailclimb/JavaGuide/issues/675)）：在 Java 9 之后，`String`、`StringBuilder` 与 `StringBuffer` 的实现改用 `byte` 数组存储字符串。
+>
+> ```java
+> public final class String implements java.io.Serializable,Comparable<String>, CharSequence {
+>     // @Stable 注解表示变量最多被修改一次，称为“稳定的”。
+>     @Stable
+>     private final byte[] value;
+> }
+> 
+> abstract class AbstractStringBuilder implements Appendable, CharSequence {
+>     byte[] value;
+> 
+> }
+> 
+> ```
+
+------
+
+**Java 9 为何要将 String 的底层实现由 char[] 改成了 byte[] ?**
+
+新版的 String 其实支持两个编码方案：Latin-1 和 UTF-16。如果字符串中包含的汉字没有超过 Latin-1 可表示范围内的字符，那就会使用 Latin-1 作为编码方案。Latin-1 编码方案下，`byte` 占一个字节(8 位)，`char` 占用 2 个字节（16），`byte` 相较 `char` 节省一半的内存空间。
+
+JDK 官方就说了绝大部分字符串对象只包含 Latin-1 可表示的字符。
+
+### 字符串拼接用“+” 还是 StringBuilder?
+
+字符串对象通过“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
+
+在循环内使用“+”进行字符串的拼接的话，存在比较明显的缺陷：**编译器不会创建单个 StringBuilder 以复用，会导致创建过多的 StringBuilder 对象**。
+
+使用 “+” 进行字符串拼接会产生大量的临时对象的问题在 JDK9 中得到了解决。在 JDK9 当中，字符串相加 “+” 改为了用动态方法 
+
+makeConcatWithConstants()来实现，而不是大量的 StringBuilder了。这个改进是 JDK9 的 
+
+ 提出的，这也意味着 JDK 9 之后，你可以放心使用“+” 进行字符串拼接使用。 
+
+### 字符串常量池的作用了解吗？
+
+**字符串常量池** 是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。
+
+```java
+// 在堆中创建字符串对象”ab“
+// 将字符串对象”ab“的引用保存在字符串常量池中
+String aa = "ab";
+// 直接返回字符串常量池中字符串对象”ab“的引用
+String bb = "ab";
+System.out.println(aa==bb);// true
+```
+
+
+
+
+
+------
+
+著作权归JavaGuide(javaguide.cn)所有 基于MIT协议 原文链接：https://javaguide.cn/java/basis/java-basic-questions-02.html
