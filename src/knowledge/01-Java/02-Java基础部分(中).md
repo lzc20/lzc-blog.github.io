@@ -1,6 +1,6 @@
 ---
 order: 2
-title: java基础(中)
+title: Java基础部分(下)
 ---
 # 01-02Java基础（中）
 
@@ -361,8 +361,66 @@ System.out.println(aa==bb);// true
 
 
 
+### String s1 = new String("abc");这句话创建了几个字符串对象？
 
+会创建 1 或 2 个字符串对象。
+
+1、如果字符串常量池中不存在字符串对象“abc”的引用，那么它会在堆上创建两个字符串对象，其中一个字符串对象的引用会被保存在字符串常量池中。
+
+示例代码（JDK 1.8）：
+
+```java
+String s1 = new String("abc");
+```
+
+
+
+对应的字节码：
+
+![字节码](02-Java基础部分(中).assets/1705848249554.png)
+
+`ldc` 命令用于判断字符串常量池中是否保存了对应的字符串对象的引用，如果保存了的话直接返回，如果没有保存的话，会在堆中创建对应的字符串对象并将该字符串对象的引用保存到字符串常量池中
+
+2、如果字符串常量池中已存在字符串对象“abc”的引用，则只会在堆中创建 1 个字符串对象“abc”。
+
+~~~java
+// 字符串常量池中已存在字符串对象“abc”的引用
+String s1 = "abc";
+// 下面这段代码只会在堆中创建 1 个字符串对象“abc”
+String s2 = new String("abc");
+~~~
+
+### String#intern 方法有什么作用?
+
+`String.intern()` 是一个 native（本地）方法，其作用是将指定的字符串对象的引用保存在字符串常量池中，可以简单分为两种情况：
+
+- 如果字符串常量池中保存了对应的字符串对象的引用，就直接返回该引用。
+- 如果字符串常量池中没有保存了对应的字符串对象的引用，那就在常量池中创建一个指向该字符串对象的引用并返回。
 
 ------
 
-著作权归JavaGuide(javaguide.cn)所有 基于MIT协议 原文链接：https://javaguide.cn/java/basis/java-basic-questions-02.html
+~~~java
+// 在堆中创建字符串对象”Java“
+// 将字符串对象”Java“的引用保存在字符串常量池中
+String s1 = "Java";
+// 直接返回字符串常量池中字符串对象”Java“对应的引用
+String s2 = s1.intern();
+// 会在堆中在单独创建一个字符串对象
+String s3 = new String("Java");
+// 直接返回字符串常量池中字符串对象”Java“对应的引用
+String s4 = s3.intern();
+// s1 和 s2 指向的是堆中的同一个对象
+System.out.println(s1 == s2); // true
+// s3 和 s4 指向的是堆中不同的对象
+System.out.println(s3 == s4); // false
+// s1 和 s4 指向的是堆中的同一个对象
+System.out.println(s1 == s4); //true
+
+~~~
+
+对象引用和“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
+
+我们在平时写代码的时候，尽量避免多个字符串对象拼接，因为这样会重新创建对象。如果需要改变字符串的话，可以使用 `StringBuilder` 或者 `StringBuffer`。
+
+不过，字符串使用 `final` 关键字声明之后，可以让编译器当做常量来处理。
+
