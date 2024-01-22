@@ -1,1 +1,0 @@
-import{_ as e}from"./plugin-vue_export-helper-x3n3nnut.js";import{o as t,c as o,a as _}from"./app-ir11yVPc.js";const c={},s=_("p",null,"我操你大爷",-1),n=[s];function r(a,l){return t(),o("div",null,n)}const m=e(c,[["render",r],["__file","2024011.html.vue"]]);export{m as default};
