@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-5df6842b","path":"/knowledge/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/","title":"软件设计文档","lang":"zh-CN","frontmatter":{"title":"软件设计文档","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};
