@@ -5,3 +5,4 @@ order: 100
 # icon: object-group
 ---
 <AutoCatalog />
+
